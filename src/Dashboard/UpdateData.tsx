@@ -138,7 +138,14 @@ export const UpdateData = () => {
                             setShowImagePreview(true)
                             setImagePreview(data.Photo1)
                           }}
-                          style={{ width: 'auto', height: '250px', cursor: 'pointer', display: 'flex', margin: 'auto' }}
+                          style={{ 
+                            width: '100%', 
+                            height: '250px', 
+                            cursor: 'pointer', 
+                            display: 'flex', 
+                            margin: 'auto',
+                            padding : 10
+                          }}
                           alt="preview"
                         />
                       </Grid>
@@ -151,12 +158,19 @@ export const UpdateData = () => {
                             setShowImagePreview(true)
                             setImagePreview(data.Photo2)
                           }}
-                          style={{ width: 'auto', height: '250px', cursor: 'pointer', display: 'flex', margin: 'auto' }}
+                          style={{ 
+                            width: '100%', 
+                            height: '250px', 
+                            cursor: 'pointer', 
+                            display: 'flex', 
+                            margin: 'auto',
+                            padding : 10
+                          }}
                           alt="preview"
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={6}>
+                      {/* <Grid item xs={12} sm={6}>
                         <div style={{ height: '500px', width: '100%' }}>
                           <GoogleMapReact
                             bootstrapURLKeys={{ key: "" }}
@@ -173,7 +187,7 @@ export const UpdateData = () => {
                             />
                           </GoogleMapReact>
                         </div>
-                      </Grid>
+                      </Grid> */}
 
 
 
