@@ -6,6 +6,8 @@ const initialData = {
     "IndiaPoints": 0
 }
 
+const PrimaryColor = "#009CFF"
+
 const Countries = ["India", "US"]
 
 const headerStyle = {
@@ -41,5 +43,6 @@ export {
     Countries,
     headerStyle,
     tableInputStyle,
-    tabledropdownStyle
+    tabledropdownStyle,
+    PrimaryColor
 }

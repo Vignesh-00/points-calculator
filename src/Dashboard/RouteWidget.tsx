@@ -6,6 +6,7 @@ import Dashboard from '.'
 import ProtectedRoute from './ProtectedRoute'
 import { useSelector } from 'react-redux'
 import { UpdateData } from './UpdateData'
+import PrivacyPolicy from './PrivacyPolicy'
 
 export default function RouteWidget() {
   //@ts-ignore
@@ -17,7 +18,9 @@ export default function RouteWidget() {
         <Route path="/" element={<ProtectedRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/viewdata' element={<UpdateData />} />
+
         </Route>
+        <Route path='/privacy-policy' element={<PrivacyPolicy />} />
       </Routes>
     </BrowserRouter>
   )
