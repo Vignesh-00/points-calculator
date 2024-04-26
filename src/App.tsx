@@ -1,11 +1,10 @@
-import Map from './Dashboard/Map';
-import RouteWidget from './Dashboard/RouteWidget';
-import Payment from './Payment';
+import MiniProjectRouteWidget from './MiniProject/RouteWidget'
+// import RouteWidget from './Dashboard/RouteWidget'
+// import Payment from './Payment';
 
 function App() {
   return (
-    <RouteWidget />
-    // <Payment />
+    <MiniProjectRouteWidget />
   );
 }
 
