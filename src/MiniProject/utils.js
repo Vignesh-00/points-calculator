@@ -66,7 +66,7 @@ const appendData = async (sheetName = "", lastRow = 1) => {
 
 
 const animationStyle = () => {
-  return `fadeIn 1s ease forwards`
+  return `fadeIn 0.5s ease forwards`
 }
 
 export {
