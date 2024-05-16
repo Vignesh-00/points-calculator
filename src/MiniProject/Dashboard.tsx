@@ -194,6 +194,7 @@ export default function Dashboard() {
       PaymentImage: await base64Converter(file)
     }
     axios.post('https://learnatpsit.in:5000/api/test', payload)
+    // axios.post('http://localhost:5000/api/test', payload)
       .then((resp) => {
         console.log(resp.data)
         setPaymentDetails(resp.data)
@@ -204,12 +205,15 @@ export default function Dashboard() {
         if (!resp.data.Validation) {
           setErrorMessages('Please upload a clear and relevant screenshot of your payment details')
         }
-        else if (!resp.data?.To?.includes("PROF HEAD DEPT OF PHYSICAL SCIENCES INFO")) {
-          setErrorMessages('Payment Receiver is not Correct. Please Cross-Check.')
+        else{
+          setErrorMessages("")
         }
-        else if (cleanAmountString != formData.Amount) {
-          setErrorMessages('Paid Amount is not Correct. Please Cross-Check.')
-        }
+        // else if (!resp.data?.To?.includes("PROF HEAD DEPT OF PHYSICAL SCIENCES INFO")) {
+        //   setErrorMessages('Payment Receiver is not Correct. Please Cross-Check.')
+        // }
+        // else if (cleanAmountString != formData.Amount) {
+        //   setErrorMessages('Paid Amount is not Correct. Please Cross-Check.')
+        // }
 
       }).catch((err) => {
         console.log(err)
@@ -327,7 +331,18 @@ export default function Dashboard() {
                     color: '#2a2a2a',
                   }}
                 >
-                  <h5>Select the Sessions of Your Interest (Half-Day)</h5>
+                  {
+                    !!courses
+                      .filter(c => c.AgeGroupID == selectedAgeGroup)
+                      .filter(c => c.Duration == "1/2 Day")
+                      .filter(c => {
+                        if (isConfirmed)
+                          return selectedCourses.some(sc => sc.CourseID === c.CourseID)
+                        else return true
+                      }).length &&
+                    <h5>Select the Sessions of Your Interest (Half-Day)</h5>
+                  }
+
                   {
                     courses
                       .filter(c => c.AgeGroupID == selectedAgeGroup)
@@ -407,7 +422,18 @@ export default function Dashboard() {
                     color: '#2a2a2a',
                   }}
                 >
-                  <h5>Select the Sessions of Your Interest (Full-Day)</h5>
+                  {
+                    !!courses
+                      .filter(c => c.AgeGroupID == selectedAgeGroup)
+                      .filter(c => c.Duration == "1 Day")
+                      .filter(c => {
+                        if (isConfirmed)
+                          return selectedCourses.some(sc => sc.CourseID === c.CourseID)
+                        else return true
+                      }).length &&
+                    <h5>Select the Sessions of Your Interest (Full-Day)</h5>
+                  }
+
                   {
                     courses
                       .filter(c => {
@@ -417,6 +443,102 @@ export default function Dashboard() {
                       })
                       .filter(c => c.AgeGroupID == selectedAgeGroup)
                       .filter(c => c.Duration == "1 Day")
+                      .filter(c => {
+                        if (isConfirmed)
+                          return selectedCourses.some(sc => sc.CourseID === c.CourseID)
+                        else return true
+                      })
+                      .map(course => (
+                        <div className='row mb-2' key={course.CourseID}>
+                          <div className="col-sm-8 col-lg-6">
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  disabled={isConfirmed}
+                                  onChange={(e) => {
+                                    if (e.target.checked) {
+                                      let temp = selectedCourses
+                                      temp.push({
+                                        ...course,
+                                        SelectedDate: course?.Date[0] || ""
+                                      })
+                                      setSelectedCourses([...temp])
+                                    }
+                                    else {
+                                      let temp = selectedCourses.filter(d => d.CourseID !== course.CourseID)
+                                      setSelectedCourses([...temp])
+                                    }
+                                  }}
+                                />}
+                              label={<div style={{ color: '#2a2a2a' }}>{`${course.Name} (₹ ${course.Price})`}</div>}
+                            />
+                          </div>
+
+                          {
+                            !!selectedCourses.filter(c => c.CourseID == course.CourseID).length &&
+                            !!course?.Date?.length &&
+                            <div className='row col-sm-8 col-lg-6'>
+                              <label className='col-2' style={{ margin: 'auto', opacity: 1 }}>Date</label>
+                              <select
+                                style={{ backgroundColor: 'white', appearance: 'auto', width: '50%' }}
+                                onChange={(e) => {
+                                  let temp = selectedCourses.map((d: any) => {
+                                    if (d.CourseID == course.CourseID) {
+                                      return {
+                                        ...d,
+                                        SelectedDate: e.target.value
+                                      }
+                                    }
+                                    else return d
+                                  })
+                                  setSelectedCourses([...temp])
+                                }}
+                                className="form-control col-6"
+                              >
+                                {course.Date?.map((option: any) => <option key={option} value={option}>{option}</option>)}
+                              </select>
+
+                            </div>
+
+                          }
+                        </div>
+                      ))
+                  }
+                </div>
+              }
+
+              {
+                isRegistered && !!courses
+                  .filter(c => c.AgeGroupID == selectedAgeGroup)
+                  .filter(c => c.Duration == "3 day").length &&
+                <div
+                  key={`${selectedAgeGroup}3day`}
+                  style={{
+                    animation: animationStyle(),
+                    color: '#2a2a2a',
+                  }}
+                >
+                  {
+                    !!courses
+                      .filter(c => c.AgeGroupID == selectedAgeGroup)
+                      .filter(c => c.Duration == "3 day")
+                      .filter(c => {
+                        if (isConfirmed)
+                          return selectedCourses.some(sc => sc.CourseID === c.CourseID)
+                        else return true
+                      }).length &&
+                    <h5>Select the Sessions of Your Interest (3 Days)</h5>
+                  }
+
+                  {
+                    courses
+                      .filter(c => {
+                        if (isConfirmed)
+                          return selectedCourses.some(sc => sc.CourseID === c.CourseID)
+                        else return true
+                      })
+                      .filter(c => c.AgeGroupID == selectedAgeGroup)
+                      .filter(c => c.Duration == "3 day")
                       .filter(c => {
                         if (isConfirmed)
                           return selectedCourses.some(sc => sc.CourseID === c.CourseID)
@@ -578,7 +700,7 @@ export default function Dashboard() {
                         />
                         {errorMessages && <div><label style={{ color: 'red' }}>{errorMessages}</label></div>}
                         {
-                          errorMessages &&
+                          // errorMessages &&
                           <div>
                             <label style={{ color: 'green' }}>From : {paymentDetails.From}</label><br />
                             <label style={{ color: 'green' }}>To : {paymentDetails.To}</label><br />
