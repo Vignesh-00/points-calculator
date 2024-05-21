@@ -194,7 +194,7 @@ export default function Dashboard() {
       PaymentImage: await base64Converter(file)
     }
     axios.post('https://learnatpsit.in:5000/api/test', payload)
-    // axios.post('http://localhost:5000/api/test', payload)
+      // axios.post('http://localhost:5000/api/test', payload)
       .then((resp) => {
         console.log(resp.data)
         setPaymentDetails(resp.data)
@@ -205,7 +205,7 @@ export default function Dashboard() {
         if (!resp.data.Validation) {
           setErrorMessages('Please upload a clear and relevant screenshot of your payment details')
         }
-        else{
+        else {
           setErrorMessages("")
         }
         // else if (!resp.data?.To?.includes("PROF HEAD DEPT OF PHYSICAL SCIENCES INFO")) {
@@ -715,7 +715,34 @@ export default function Dashboard() {
                       <div className="p-5 justify-content-center" style={{ width: '100%' }}>
                         <input id='img-upload' type="file" style={{ display: 'none' }} accept="image/*"
                           onChange={(e) => {
-                            e.target.files?.length && validateImage(e.target.files[0])
+                            const selectedFile = (e.target.files?.length) ? e.target.files[0] : null;
+
+                            if (selectedFile) {
+                              // Check file type
+                              const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+                              if (!validImageTypes.includes(selectedFile.type)) {
+                                Swal.fire({
+                                  title: "Not an Image File",
+                                  text: `Please Upload an Image File`,
+                                  icon: "error",
+                                });
+                                return;
+                              }
+
+                              // Check file size
+                              const maxSizeInBytes = 10 * 1024 * 1024; // 10 MB
+                              if (selectedFile.size > maxSizeInBytes) {
+                                Swal.fire({
+                                  title: "Max Size Exceeded",
+                                  text: `Please Upload an Image File within 10MB`,
+                                  icon: "error",
+                                });
+                                return;
+                              }
+
+                              validateImage(selectedFile)
+
+                            }
                           }} />
 
 
