@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/points-calculator/static/css/main.82437720.css",
-    "main.js": "/points-calculator/static/js/main.eaceb8a7.js",
+    "main.js": "/points-calculator/static/js/main.ead7bb14.js",
     "static/media/TNAU.jpg": "/points-calculator/static/media/TNAU.ae9f9ab4fa56430a91e0.jpg",
     "static/media/AEC.jpg": "/points-calculator/static/media/AEC.79f0caafbc05b86e9ff5.jpg",
     "static/media/upi.png": "/points-calculator/static/media/upi.894f8fb51937a908f545.png",
     "static/media/PSIT.png": "/points-calculator/static/media/PSIT.7744d37fae8f8d621286.png",
     "index.html": "/points-calculator/index.html",
     "main.82437720.css.map": "/points-calculator/static/css/main.82437720.css.map",
-    "main.eaceb8a7.js.map": "/points-calculator/static/js/main.eaceb8a7.js.map"
+    "main.ead7bb14.js.map": "/points-calculator/static/js/main.ead7bb14.js.map"
   },
   "entrypoints": [
     "static/css/main.82437720.css",
-    "static/js/main.eaceb8a7.js"
+    "static/js/main.ead7bb14.js"
   ]
 }
